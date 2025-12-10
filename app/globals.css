@@ -7,3 +7,9 @@
   --color-foreground: #f1f5d9;
   --color-muted: #94a3b8;
 }
+
+@layer components {
+  .card {
+    @apply bg-slate-800 border border-slate-700 rounded-lg shadow-lg;
+  }
+}
