@@ -72,26 +72,35 @@ export default function Navbar({ session }: { session: Session | null }) {
         </div>
         {isMenuOpen && (
           <div className='md:hidden'>
-            <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3'>
-              <Link
-                href='/events'
-                className='text-foreground hover:text-primary px-3 py-2 rounded-md text-base block font-medium transition-colors'
-              >
-                Events
-              </Link>
-              <Link
-                href='/events/create'
-                className='text-foreground hover:text-primary px-3 py-2 rounded-md text-base block font-medium transition-colors'
-              >
-                Create Event
-              </Link>
-              <Link
-                href='/dashboard'
-                className='text-foreground hover:text-primary px-3 py-2 rounded-md text-base block font-medium transition-colors'
-              >
-                Dashboard
-              </Link>
-
+            {session ? (
+              <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3'>
+                <Link
+                  href='/events'
+                  className='text-foreground hover:text-primary px-3 py-2 rounded-md text-base block font-medium transition-colors'
+                >
+                  Events
+                </Link>
+                <Link
+                  href='/events/create'
+                  className='text-foreground hover:text-primary px-3 py-2 rounded-md text-base block font-medium transition-colors'
+                >
+                  Create Event
+                </Link>
+                <Link
+                  href='/dashboard'
+                  className='text-foreground hover:text-primary px-3 py-2 rounded-md text-base block font-medium transition-colors'
+                >
+                  Dashboard
+                </Link>
+                <button
+                  type='button'
+                  onClick={logout}
+                  className='bg-primary text-background px-4 py-2 rounded-md cursor-pointer text-sm font-medium transition-colors hover:bg-primary/90'
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
               <div className='flex items-center space-x-2'>
                 <Link
                   href='login'
@@ -100,7 +109,7 @@ export default function Navbar({ session }: { session: Session | null }) {
                   Sign in with Github
                 </Link>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>

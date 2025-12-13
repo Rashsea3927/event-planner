@@ -26,8 +26,8 @@ export async function createEvent(_: unknown, formData: FormData) {
       description: formData.get('description'),
       date: formData.get('date'),
       location: formData.get('location'),
-      maxAttendees: formData.get('maxAttendees'),
-      isPublic: formData.get('isPublic'),
+      maxAttendees: formData.get('maxAttendees') ?? undefined,
+      isPublic: formData.get('isPublic') ?? undefined,
     };
 
     const validatedData = eventsSchema.parse(rawData);
