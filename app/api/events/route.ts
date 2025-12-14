@@ -8,7 +8,9 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search');
     const filter = searchParams.get('filter');
 
-    const where: EventWhereInput = {};
+    const where: EventWhereInput = {
+      isPublic: true,
+    };
 
     if (search) {
       where.OR = [
