@@ -1,4 +1,4 @@
-import type { EventWhereInput } from '@/app/generated/prisma/models';
+import { EventWhereInput } from '@/app/generated/prisma/models';
 import prisma from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
