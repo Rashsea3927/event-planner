@@ -2,6 +2,7 @@
 
 import { auth } from '@/lib/auth';
 import prisma from '@/lib/prisma';
+import { revalidateTag } from 'next/cache';
 import { z } from 'zod';
 
 const eventsSchema = z.object({
@@ -51,5 +52,42 @@ export async function createEvent(_: unknown, formData: FormData) {
     }
 
     return { success: false, error: 'An unexpected error occurred', eventId: null };
+  }
+}
+
+export async function deleteEvent(eventId: string) {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return { success: false, error: 'Not authenticated' };
+    }
+
+    const existingEvent = await prisma.event.findUnique({
+      where: {
+        id: eventId,
+      },
+    });
+
+    if (!existingEvent) {
+      return { success: false, error: 'Event not found' };
+    }
+
+    if (existingEvent.userId !== session.user.id) {
+      return { success: false, error: 'Not authorized to delete this event' };
+    }
+
+    await prisma.event.delete({
+      where: {
+        id: eventId,
+      },
+    });
+
+    revalidateTag('events', 'max');
+
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: 'Failed to delete event' };
   }
 }
