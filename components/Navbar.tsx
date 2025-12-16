@@ -50,7 +50,7 @@ export default function Navbar({ session }: { session: Session | null }) {
             ) : (
               <div className='flex items-center space-x-2'>
                 <Link
-                  href='login'
+                  href='/login'
                   className='bg-primary text-background px-4 py-2 rounded-md cursor-pointer text-sm font-medium transition-colors hover:bg-primary/90'
                 >
                   Sign in with Github
